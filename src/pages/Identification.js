@@ -11,6 +11,7 @@ function Identification() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleIdentification = async (e) => {
         e.preventDefault();
@@ -20,15 +21,26 @@ function Identification() {
                 email,
                 password,
             });
+
+            if (response.status === "error") {
+                setError(response.error);
+            } else {
+                setError("");
+            }
         } else {
             const response = await registrationService({
                 name,
                 email,
                 password,
             });
+
+            if (response.status === "error") {
+                setError(response.error);
+            } else {
+                setError("");
+            }
         }
 
-        // reset
         setName("");
         setEmail("");
         setPassword("");
@@ -54,6 +66,7 @@ function Identification() {
                         value={name}
                         onChange={({ target }) => setName(target.value)}
                         className="input"
+                        required
                     />
                 )}
                 <input
@@ -62,6 +75,7 @@ function Identification() {
                     value={email}
                     onChange={({ target }) => setEmail(target.value)}
                     className="input"
+                    required
                 />
                 <input
                     type="password"
@@ -69,7 +83,13 @@ function Identification() {
                     value={password}
                     onChange={({ target }) => setPassword(target.value)}
                     className="input"
+                    required
                 />
+                {error === "" ? (
+                    ""
+                ) : (
+                    <p className="text-sm text-red-600">{error}</p>
+                )}
                 <button type="submit" className="btn">
                     {isLogin ? "Log in" : "Sign up"}
                 </button>

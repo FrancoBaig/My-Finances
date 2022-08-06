@@ -9,7 +9,7 @@ export const registrationService = async (data) => {
             `${baseURL}/api/identification/signup`,
             data
         );
-        return response;
+        return response.data;
     } catch (err) {
         console.log(err);
     }
