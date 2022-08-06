@@ -6,12 +6,18 @@ import {
     loginService,
 } from "../services/IdentificationAPI";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { createUser } from "../redux/states/userState";
+
 function Identification() {
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const dispatch = useDispatch();
 
     const handleIdentification = async (e) => {
         e.preventDefault();
@@ -26,6 +32,7 @@ function Identification() {
                 setError(response.error);
             } else {
                 setError("");
+                dispatch(createUser(response.data));
             }
         } else {
             const response = await registrationService({
