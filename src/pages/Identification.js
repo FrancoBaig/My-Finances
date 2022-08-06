@@ -1,13 +1,26 @@
 import React, { useState } from "react";
 
+// services
+import { registrationService } from "../services/IdentificationAPI";
+
 function Identification() {
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleIdentification = (e) => {
+    const handleIdentification = async (e) => {
         e.preventDefault();
+
+        if (isLogin) {
+            return "";
+        } else {
+            const response = await registrationService({
+                name,
+                email,
+                password,
+            });
+        }
 
         // reset
         setName("");
@@ -18,7 +31,7 @@ function Identification() {
     return (
         <div className="w-full h-screen flex justify-center items-center">
             <form
-                onSubmit={handleIdentification}
+                onSubmit={(e) => handleIdentification(e)}
                 className="w-full paper p-10 grid gap-3 "
             >
                 <h2 className="text-xl">
