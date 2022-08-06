@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
 // services
-import { registrationService } from "../services/IdentificationAPI";
+import {
+    registrationService,
+    loginService,
+} from "../services/IdentificationAPI";
 
 function Identification() {
     const [isLogin, setIsLogin] = useState(true);
@@ -13,7 +16,10 @@ function Identification() {
         e.preventDefault();
 
         if (isLogin) {
-            return "";
+            const response = await loginService({
+                email,
+                password,
+            });
         } else {
             const response = await registrationService({
                 name,
