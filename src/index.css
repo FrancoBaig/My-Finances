@@ -4,12 +4,12 @@
 
 @layer components {
     .paper {
-        @apply bg-white rounded-xl p-3
+        @apply bg-white rounded-xl p-3 shadow-lg
     }
     .input {
         @apply p-2 w-full bg-gray-50 rounded-md border border-gray-100 focus:outline focus:outline-offset-1 focus:outline-primary
     }
     .btn {
-        @apply w-full p-2 text-white font-bold bg-primary  rounded-lg transition hover:bg-primary-hover
+        @apply w-full p-2 text-white font-bold bg-primary rounded-lg transition hover:bg-primary-hover
     }
 }
