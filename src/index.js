@@ -7,9 +7,23 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
+// React router
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./components/route/PrivateRoute";
+
+// Pages
+import Identification from "./pages/Identification";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <Routes>
+                <Route element={<PrivateRoute />}>
+                    <Route path="/home" element={<App />} />
+                </Route>
+                <Route path="/" element={<Identification />} />
+            </Routes>
+        </BrowserRouter>
     </Provider>
 );

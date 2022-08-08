@@ -7,8 +7,11 @@ import {
 } from "../services/IdentificationAPI";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/states/userState";
+
+// Router
+import { Navigate } from "react-router-dom";
 
 function Identification() {
     const [isLogin, setIsLogin] = useState(true);
@@ -18,6 +21,7 @@ function Identification() {
     const [error, setError] = useState("");
 
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.user);
 
     const handleIdentification = async (e) => {
         e.preventDefault();
@@ -53,11 +57,15 @@ function Identification() {
         setPassword("");
     };
 
+    if (user.email !== "") {
+        return <Navigate to="/home" replace={true} />;
+    }
+
     return (
         <div className="w-full h-screen flex justify-center items-center">
             <form
                 onSubmit={(e) => handleIdentification(e)}
-                className="w-full paper p-10 grid gap-3 "
+                className="w-full paper p-10 grid gap-3 md:max-w-md"
             >
                 <h2 className="text-xl">
                     {isLogin
