@@ -54,7 +54,7 @@ const ExpenseIcon = () => {
     );
 };
 
-function AddTransactionButton() {
+function AddTransactionButton({ setOpenIncome }) {
     const [openModal, setOpenModal] = useState(false);
 
     return (
@@ -63,7 +63,11 @@ function AddTransactionButton() {
                 <>
                     <BackDrop setModal={setOpenModal} />
                     <div className="w-4/5 col-span-3 justify-self-end paper h-20 rounded-none rounded-t-lg rounded-l-lg z-10">
-                        <IconButton Icon={<IncomeIcon />} text="Income" />
+                        <IconButton
+                            Icon={<IncomeIcon />}
+                            text="Income"
+                            onClick={setOpenIncome}
+                        />
                         <IconButton Icon={<ExpenseIcon />} text="Expense" />
                     </div>
                 </>
