@@ -4,18 +4,24 @@ import React, { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
+// Redux
+import { useSelector } from "react-redux";
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-function DropDown({ items }) {
+function DropDown() {
     const [selected, setSelected] = useState(null);
+    const items = useSelector((state) => state.categories);
 
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
-                <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-                    {selected?.text || "Category"}
+                <Menu.Button className="inline-flex justify-between w-6/12 rounded-md border-b border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-3 focus:ring-offset-gray-100 focus:ring-primary">
+                    {selected
+                        ? items.filter((el) => el.id === selected)[0].title
+                        : "Category"}
                     <ChevronDownIcon
                         className="-mr-1 ml-2 h-5 w-5"
                         aria-hidden="true"
@@ -35,10 +41,9 @@ function DropDown({ items }) {
                 <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                         {items.map((item) => (
-                            <Menu.Item>
+                            <Menu.Item key={item.id}>
                                 {({ active }) => (
                                     <div
-                                        href="#"
                                         className={classNames(
                                             active
                                                 ? "bg-gray-100 text-gray-900"
@@ -47,7 +52,7 @@ function DropDown({ items }) {
                                         )}
                                         onClick={() => setSelected(item.id)}
                                     >
-                                        Account settings
+                                        {item.title}
                                     </div>
                                 )}
                             </Menu.Item>
