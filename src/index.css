@@ -12,4 +12,7 @@
     .btn {
         @apply w-full p-2 text-white font-bold bg-primary rounded-lg transition hover:bg-primary-hover
     }
+    .input-transaction {
+        @apply bg-transparent border-b outline-none pb-1
+    }
 }
