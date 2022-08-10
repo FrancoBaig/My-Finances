@@ -15,4 +15,10 @@
     .input-transaction {
         @apply bg-transparent border-b outline-none pb-1
     }
+    .input-error {
+        @apply text-red-500 text-sm font-medium block
+    }
+    .label {
+        @apply block pb-1
+    }
 }
