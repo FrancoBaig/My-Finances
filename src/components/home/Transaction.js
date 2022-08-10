@@ -22,7 +22,7 @@ import moment from "moment";
 // useForm
 import { useForm } from "react-hook-form";
 
-function Income({ setModal }) {
+function Transaction({ setModal, mode }) {
     const user = useSelector((store) => store.user);
     const items = useSelector((state) => state.categories);
     const dispatch = useDispatch();
@@ -43,10 +43,13 @@ function Income({ setModal }) {
     }, [dispatch, user]);
 
     const handleSubmitTransaction = (form) => {
+        const amount = parseInt(form.amount);
+        const isExpense = mode.id === 2 ? amount * -1 : amount;
+
         const data = {
             description: form.description,
             categoryId: parseInt(form.category),
-            amount: parseInt(form.amount),
+            amount: isExpense,
             date: moment(form.date).format("YYYY-MM-DD HH:mm:ss"),
         };
 
@@ -57,12 +60,14 @@ function Income({ setModal }) {
 
     return (
         <div>
-            <div className="w-full h-10 px-2 text-white bg-green-600 flex items-center justify-between">
+            <div
+                className={`w-full h-10 px-2 text-white flex items-center justify-between ${mode.bg}`}
+            >
                 <div className="flex items-center gap-2">
                     <button onClick={() => setModal(false)}>
                         <XIcon className="h-4 w-4" />
                     </button>
-                    <span>Income</span>
+                    <span>{mode.title}</span>
                 </div>
                 <button
                     form="transaction-form"
@@ -142,4 +147,4 @@ function Income({ setModal }) {
     );
 }
 
-export default Income;
+export default Transaction;

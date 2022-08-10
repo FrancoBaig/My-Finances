@@ -2,19 +2,29 @@ import React, { useState } from "react";
 
 // Components
 import AddTransactionButton from "../components/home/AddTransactionButton";
-import Income from "../components/home/Income";
+import Transaction from "../components/home/Transaction";
+
+const transactions = {
+    1: { id: 1, title: "Income", bg: "bg-green-600" },
+    2: { id: 2, title: "Expense", bg: "bg-red-600" },
+};
 
 function Home() {
-    const [openIncome, setOpenIncome] = useState(false);
-
-    console.log(openIncome);
+    const [openTransaction, setOpenTransaction] = useState(false);
+    const [mode, setMode] = useState(1);
 
     return (
         <div>
-            {openIncome ? (
-                <Income setModal={setOpenIncome} />
+            {openTransaction ? (
+                <Transaction
+                    setModal={setOpenTransaction}
+                    mode={transactions[mode]}
+                />
             ) : (
-                <AddTransactionButton setOpenIncome={setOpenIncome} />
+                <AddTransactionButton
+                    setOpenTransaction={setOpenTransaction}
+                    setMode={setMode}
+                />
             )}
         </div>
     );
