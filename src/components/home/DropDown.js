@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
 // Tailwind
 import { Menu, Transition } from "@headlessui/react";
@@ -11,16 +11,15 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-function DropDown() {
-    const [selected, setSelected] = useState(null);
+function DropDown({ categoryId, setCategoryId }) {
     const items = useSelector((state) => state.categories);
 
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
                 <Menu.Button className="inline-flex justify-between w-6/12 rounded-md border-b border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-3 focus:ring-offset-gray-100 focus:ring-primary">
-                    {selected
-                        ? items.filter((el) => el.id === selected)[0].title
+                    {categoryId
+                        ? items.filter((el) => el.id === categoryId)[0].title
                         : "Category"}
                     <ChevronDownIcon
                         className="-mr-1 ml-2 h-5 w-5"
@@ -50,7 +49,7 @@ function DropDown() {
                                                 : "text-gray-700",
                                             "block px-4 py-2 text-sm"
                                         )}
-                                        onClick={() => setSelected(item.id)}
+                                        onClick={() => setCategoryId(item.id)}
                                     >
                                         {item.title}
                                     </div>

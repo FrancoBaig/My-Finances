@@ -1,10 +1,8 @@
-import React, { useState, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function InputDatePicker() {
-    const [startDate, setStartDate] = useState(new Date());
-
+function InputDatePicker({ date, setDate }) {
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div onClick={onClick} ref={ref} className="relative">
             <svg
@@ -27,8 +25,8 @@ function InputDatePicker() {
 
     return (
         <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            selected={date}
+            onChange={(date) => setDate(date)}
             customInput={<ExampleCustomInput />}
         />
     );
