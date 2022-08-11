@@ -9,12 +9,12 @@ import { XIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 // services
-import { getCategoriesService } from "../../services/categoriesAPI";
+
 import { postTransactionService } from "../../services/transactionsAPI";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { createCategories } from "../../redux/states/categoriesState";
+import { getCategories } from "../../redux/states/categoriesState";
 
 // Moment
 import moment from "moment";
@@ -35,11 +35,7 @@ function Transaction({ setModal, mode }) {
     } = useForm();
 
     useEffect(() => {
-        const getCategories = async (token) => {
-            const result = await getCategoriesService(token);
-            dispatch(createCategories(result.data));
-        };
-        getCategories(user.token);
+        dispatch(getCategories());
     }, [dispatch, user]);
 
     const handleSubmitTransaction = (form) => {
@@ -59,7 +55,7 @@ function Transaction({ setModal, mode }) {
     };
 
     return (
-        <div>
+        <div className="">
             <div
                 className={`w-full h-10 px-2 text-white flex items-center justify-between ${mode.bg}`}
             >
