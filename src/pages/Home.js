@@ -15,7 +15,7 @@ function Home() {
     const [mode, setMode] = useState(1);
 
     return (
-        <div>
+        <div className="relative">
             <TransactionList />
             {openTransaction ? (
                 <Transaction

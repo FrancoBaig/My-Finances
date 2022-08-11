@@ -54,7 +54,9 @@ function TransactionList() {
         <div
             className={classNames(
                 "paper px-8 py-4",
-                isFullPage ? "absolute w-full h-full rounded-none" : ""
+                isFullPage
+                    ? "absolute top-0 right-0 w-full rounded-none z-30 bg-white"
+                    : ""
             )}
         >
             <div className="flex justify-between items-center pb-4">

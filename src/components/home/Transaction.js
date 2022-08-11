@@ -19,6 +19,9 @@ import moment from "moment";
 // useForm
 import { useForm } from "react-hook-form";
 
+// helper
+import { classNames } from "../../helper/classNames";
+
 function Transaction({ setModal, mode }) {
     const user = useSelector((store) => store.user);
     const items = useSelector((state) => state.categories);
@@ -51,9 +54,12 @@ function Transaction({ setModal, mode }) {
     };
 
     return (
-        <div className="">
+        <div className="absolute top-0 right-0 bg-white w-full h-full">
             <div
-                className={`w-full h-10 px-2 text-white flex items-center justify-between ${mode.bg}`}
+                className={classNames(
+                    "w-full h-10 px-2 text-white flex items-center justify-between",
+                    mode.bg
+                )}
             >
                 <div className="flex items-center gap-2">
                     <button onClick={() => setModal(false)}>
