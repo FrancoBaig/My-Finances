@@ -8,13 +8,10 @@ import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-// services
-
-import { postTransactionService } from "../../services/transactionsAPI";
-
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../redux/states/categoriesState";
+import { postTransaction } from "../../redux/states/transactionsState";
 
 // Moment
 import moment from "moment";
@@ -49,8 +46,7 @@ function Transaction({ setModal, mode }) {
             date: moment(form.date).format("YYYY-MM-DD HH:mm:ss"),
         };
 
-        postTransactionService(data, user.token);
-
+        dispatch(postTransaction(data));
         setModal(false);
     };
 
