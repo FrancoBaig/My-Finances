@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Components
 import AddTransactionButton from "../components/home/AddTransactionButton";
 import Transaction from "../components/home/Transaction";
+import TransactionList from "../components/TransactionList";
 
 const transactions = {
     1: { id: 1, title: "Income", bg: "bg-green-600" },
@@ -15,6 +16,7 @@ function Home() {
 
     return (
         <div>
+            <TransactionList />
             {openTransaction ? (
                 <Transaction
                     setModal={setOpenTransaction}
