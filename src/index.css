@@ -21,4 +21,7 @@
     .label {
         @apply block pb-1
     }
+    .backdrop {
+        @apply fixed top-0 right-0 w-full h-full bg-black/30
+    }
 }
