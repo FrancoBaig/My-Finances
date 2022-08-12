@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCategoriesService } from "../../services/categoriesAPI";
+import {
+    getCategoriesService,
+    postCategoryService,
+} from "../../services/categoriesAPI";
 
 export const initialState = [];
 
@@ -8,6 +11,7 @@ export const categoriesSlice = createSlice({
     initialState: initialState,
     reducers: {
         createCategories: (state, action) => action.payload,
+        setCategory: (state, action) => [...state, action.payload],
     },
 });
 
@@ -23,6 +27,18 @@ export const getCategories = () => {
     };
 };
 
-export const { createCategories } = categoriesSlice.actions;
+export const postCategory = (data) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        try {
+            const result = await postCategoryService(data, state.user.token);
+            dispatch(setCategory({ id: result.id, ...data }));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+export const { createCategories, setCategory } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

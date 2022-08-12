@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import InputDatePicker from "./InputDatePicker";
+import CreateCategory from "./CreateCategory";
 
 // heruicons
 import { CurrencyDollarIcon } from "@heroicons/react/outline";
-import { XIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { PlusCircleIcon } from "@heroicons/react/outline";
+import { XIcon } from "@heroicons/react/solid";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +28,7 @@ function Transaction({ setModal, mode }) {
     const user = useSelector((store) => store.user);
     const items = useSelector((state) => state.categories);
     const dispatch = useDispatch();
+    const [createCategory, setCreateCategory] = useState(false);
 
     const {
         register,
@@ -77,7 +80,7 @@ function Transaction({ setModal, mode }) {
             </div>
             <form
                 onSubmit={handleSubmit(handleSubmitTransaction)}
-                className="grid gap-6 px-3 pt-4"
+                className="grid gap-6 px-3 pt-4 bg-white"
                 id="transaction-form"
             >
                 <div>
@@ -123,24 +126,36 @@ function Transaction({ setModal, mode }) {
 
                 <div>
                     <label className="label">Category</label>
-                    <div className="relative">
-                        <select
-                            className="block w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                            id="grid-state"
-                            {...register("category", {
-                                valueAsNumber: true,
-                            })}
+                    <div className="flex gap-2 justify-center align-center">
+                        <div className="relative w-11/12">
+                            <select
+                                className="block w-full border-b bg-white text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                id="grid-state"
+                                {...register("category", {
+                                    valueAsNumber: true,
+                                })}
+                            >
+                                {items.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                        {item.title}
+                                    </option>
+                                ))}
+                            </select>
+                            <ChevronDownIcon className="h-4 w-4 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700" />
+                        </div>
+                        <div
+                            className="cursor-pointer"
+                            onClick={() => setCreateCategory(true)}
                         >
-                            {items.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                    {item.title}
-                                </option>
-                            ))}
-                        </select>
-                        <ChevronDownIcon className="h-4 w-4 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700" />
+                            <PlusCircleIcon className="w-7 pointer-events-none text-gray-500" />
+                        </div>
                     </div>
                 </div>
             </form>
+            <CreateCategory
+                display={createCategory}
+                setDisplay={setCreateCategory}
+            />
         </div>
     );
 }

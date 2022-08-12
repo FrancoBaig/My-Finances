@@ -12,3 +12,14 @@ export const getCategoriesService = async (token) => {
         console.log(err);
     }
 };
+
+export const postCategoryService = async (data, token) => {
+    try {
+        const response = await axios.post(`${baseURL}/api/categories`, data, {
+            headers: { Authorization: token },
+        });
+        return response.data;
+    } catch (err) {
+        console.log(err);
+    }
+};
