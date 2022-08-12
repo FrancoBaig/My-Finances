@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import AddTransactionButton from "../components/AddTransactionButton";
-import Transaction from "../components/Transaction";
 import TransactionList from "../components/TransactionList";
+import Transaction from "../components/Transaction";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { setDate } from "../redux/states/dateState";
 
 const transactions = {
     1: { id: 1, title: "Income", bg: "bg-green-600" },
@@ -13,6 +17,11 @@ const transactions = {
 function Home() {
     const [openTransaction, setOpenTransaction] = useState(false);
     const [mode, setMode] = useState(1);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setDate(Date.now()));
+    }, []);
 
     return (
         <div className="relative">
