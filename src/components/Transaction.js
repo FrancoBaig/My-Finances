@@ -12,8 +12,8 @@ import { XIcon } from "@heroicons/react/solid";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../redux/states/categoriesState";
-import { postTransaction } from "../../redux/states/transactionsState";
+import { getCategories } from "../redux/states/categoriesState";
+import { postTransaction } from "../redux/states/transactionsState";
 
 // Moment
 import moment from "moment";
@@ -22,7 +22,7 @@ import moment from "moment";
 import { useForm } from "react-hook-form";
 
 // helper
-import { classNames } from "../../helper/classNames";
+import { classNames } from "../helper/classNames";
 
 function Transaction({ setModal, mode }) {
     const user = useSelector((store) => store.user);

@@ -2,7 +2,7 @@ import React from "react";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { postCategory } from "../../redux/states/categoriesState";
+import { postCategory } from "../redux/states/categoriesState";
 
 // useForm
 import { useForm } from "react-hook-form";

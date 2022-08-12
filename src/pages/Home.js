@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 // Components
-import AddTransactionButton from "../components/home/AddTransactionButton";
-import Transaction from "../components/home/Transaction";
+import AddTransactionButton from "../components/AddTransactionButton";
+import Transaction from "../components/Transaction";
 import TransactionList from "../components/TransactionList";
 
 const transactions = {
