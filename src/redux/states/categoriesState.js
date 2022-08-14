@@ -4,7 +4,10 @@ import {
     postCategoryService,
 } from "../../services/categoriesAPI";
 
-export const initialState = [];
+export const initialState = {
+    incomes: [],
+    expenses: [],
+};
 
 export const categoriesSlice = createSlice({
     name: "categories",
@@ -15,11 +18,15 @@ export const categoriesSlice = createSlice({
     },
 });
 
-export const getCategories = () => {
+export const getCategories = (month, year) => {
     return async (dispatch, getState) => {
         const state = getState();
         try {
-            const response = await getCategoriesService(state.user.token);
+            const response = await getCategoriesService(
+                month,
+                year,
+                state.user.token
+            );
             dispatch(createCategories(response.data));
         } catch (err) {
             console.log(err);

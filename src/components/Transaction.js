@@ -26,7 +26,14 @@ import { classNames } from "../helper/classNames";
 
 function Transaction({ setModal, mode }) {
     const user = useSelector((store) => store.user);
-    const items = useSelector((state) => state.categories);
+    const items = useSelector((state) => {
+        if (mode.id === 1) {
+            return state.categories.incomes;
+        } else {
+            return state.categories.expenses;
+        }
+    });
+    const date = useSelector((state) => state.date);
     const dispatch = useDispatch();
     const [createCategory, setCreateCategory] = useState(false);
 
@@ -38,8 +45,8 @@ function Transaction({ setModal, mode }) {
     } = useForm();
 
     useEffect(() => {
-        dispatch(getCategories());
-    }, [dispatch, user]);
+        dispatch(getCategories(date.year, date.month));
+    }, [dispatch, user, date]);
 
     const handleSubmitTransaction = (form) => {
         const amount = parseInt(form.amount);
@@ -56,6 +63,9 @@ function Transaction({ setModal, mode }) {
         setModal(false);
     };
 
+    if (items === undefined) {
+        return;
+    }
     return (
         <div className="absolute top-0 right-0 bg-white w-full h-full">
             <div
