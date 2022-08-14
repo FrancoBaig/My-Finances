@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Components
 import InputDatePicker from "./InputDatePicker";
@@ -12,7 +12,6 @@ import { XIcon } from "@heroicons/react/solid";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../redux/states/categoriesState";
 import { postTransaction } from "../redux/states/transactionsState";
 
 // Moment
@@ -25,7 +24,6 @@ import { useForm } from "react-hook-form";
 import { classNames } from "../helper/classNames";
 
 function Transaction({ setModal, mode }) {
-    const user = useSelector((store) => store.user);
     const items = useSelector((state) => {
         if (mode.id === 1) {
             return state.categories.incomes;
@@ -33,7 +31,6 @@ function Transaction({ setModal, mode }) {
             return state.categories.expenses;
         }
     });
-    const date = useSelector((state) => state.date);
     const dispatch = useDispatch();
     const [createCategory, setCreateCategory] = useState(false);
 
@@ -43,10 +40,6 @@ function Transaction({ setModal, mode }) {
         control,
         formState: { errors },
     } = useForm();
-
-    useEffect(() => {
-        dispatch(getCategories(date.year, date.month));
-    }, [dispatch, user, date]);
 
     const handleSubmitTransaction = (form) => {
         const amount = parseInt(form.amount);
