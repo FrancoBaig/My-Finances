@@ -5,6 +5,7 @@ import AddTransactionButton from "../components/AddTransactionButton";
 import TransactionList from "../components/TransactionList";
 import CategoriesChart from "../components/CategoriesChart";
 import MonthlyBalanceChart from "../components/MonthlyBalanceChart";
+import MonthlyOverview from "../components/MonthlyOverview";
 import Transaction from "../components/Transaction";
 
 // Redux
@@ -34,6 +35,7 @@ function Home() {
     return (
         <div className="relative grid gap-4">
             <MonthlyBalanceChart />
+            <MonthlyOverview />
             <TransactionList />
             <CategoriesChart title="Incomes" isIncome={true} />
             <CategoriesChart title="Expenses" isIncome={false} />
