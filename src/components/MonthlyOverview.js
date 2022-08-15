@@ -49,7 +49,7 @@ function MonthlyOverview() {
         return {
             incomes: incomes,
             expenses: expenses,
-            balance: incomes - expenses,
+            balance: incomes + expenses,
         };
     });
 
