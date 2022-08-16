@@ -15,6 +15,25 @@ export const categoriesSlice = createSlice({
     reducers: {
         createCategories: (state, action) => action.payload,
         setCategory: (state, action) => [...state, action.payload],
+        updateCategoryValue: (state, action) => {
+            const data = action.payload;
+
+            const section = data.isIncome ? "incomes" : "expenses";
+
+            const index = state[section].findIndex((el) => el.id === data.id);
+
+            const newCategories = [...state[section]];
+
+            newCategories[index] = {
+                ...newCategories[index],
+                value: newCategories[index].value + data.amount,
+            };
+
+            return {
+                ...state,
+                [section]: newCategories,
+            };
+        },
     },
 });
 
@@ -46,6 +65,7 @@ export const postCategory = (data) => {
     };
 };
 
-export const { createCategories, setCategory } = categoriesSlice.actions;
+export const { createCategories, setCategory, updateCategoryValue } =
+    categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

@@ -13,6 +13,7 @@ import { XIcon } from "@heroicons/react/solid";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { postTransaction } from "../redux/states/transactionsState";
+import { updateCategoryValue } from "../redux/states/categoriesState";
 
 // Moment
 import moment from "moment";
@@ -53,6 +54,12 @@ function Transaction({ setModal, mode }) {
         };
 
         dispatch(postTransaction(data));
+        const payload = {
+            id: data.categoryId,
+            amount: data.amount,
+            isIncome: mode.id === 1,
+        };
+        dispatch(updateCategoryValue(payload));
         setModal(false);
     };
 
