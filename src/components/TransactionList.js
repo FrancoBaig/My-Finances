@@ -63,7 +63,7 @@ function TransactionList() {
             ></div>
             <div
                 className={classNames(
-                    "paper px-8 py-4 row-span-2 md:h-auto lg:pb-14",
+                    "paper px-8 py-4 row-span-2 md:h-full lg:pb-14",
                     isFullPage
                         ? "absolute top-0 right-0 w-full rounded-none z-30 bg-white md:w-2/4 md:right-2/4 md:translate-x-2/4 md:mt-2 md:rounded-lg"
                         : ""

@@ -78,7 +78,13 @@ function MonthlyBalanceChart() {
                 </span>
             </div>
             <div className="p-3">
-                <PieChart data={balance} lineWidth={15} rounded animate />
+                <PieChart
+                    data={balance}
+                    lineWidth={15}
+                    rounded
+                    animate
+                    background="#f9fafb"
+                />
             </div>
         </div>
     );

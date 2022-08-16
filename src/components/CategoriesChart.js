@@ -58,7 +58,7 @@ function CategoriesChart({ title, isIncome = true }) {
                     {title} in {date}
                 </h3>
                 <div className="lg:h-48">
-                    <PieChart data={categories} />
+                    <PieChart data={categories} background="#f9fafb" />
                 </div>
                 <div className="pt-4 flex flex-wrap gap-2">
                     {categories.map((tag, index) => (
