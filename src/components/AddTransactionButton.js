@@ -18,11 +18,11 @@ function AddTransactionButton({ setOpenTransaction, setMode }) {
     const [openModal, setOpenModal] = useState(false);
 
     return (
-        <div className="fixed bottom-5 w-full grid grid-cols-4 bg-blue">
+        <div className="fixed bottom-5 right-5 grid grid-cols-4">
             {openModal ? (
                 <>
                     <BackDrop setModal={setOpenModal} />
-                    <div className="w-4/5 col-span-3 justify-self-end paper h-20 rounded-none rounded-t-lg rounded-l-lg z-10">
+                    <div className="w-fit col-span-3 justify-self-end paper h-30 rounded-none rounded-t-lg rounded-l-lg px-4 z-10">
                         <IconButton
                             Icon={<IncomeIcon />}
                             text="Income"
@@ -46,7 +46,7 @@ function AddTransactionButton({ setOpenTransaction, setMode }) {
             )}
 
             <button
-                className="row-start-2 col-start-4 w-16 h-16 bg-primary rounded-full flex justify-center items-center"
+                className="row-start-2 col-start-4 w-16 h-16 bg-primary rounded-full flex justify-center items-center drop-shadow-xl hover:scale-110 duration-100"
                 onClick={() => setOpenModal(true)}
             >
                 <svg
