@@ -62,12 +62,34 @@ function Identification() {
     }
 
     return (
-        <div className="w-full h-screen flex justify-center items-center">
+        <div className="w-full h-3/4 grid justify-center md:grid-cols-2 translate-y-2/4 mx-auto items-center max-w-screen-md shadow-md">
+            <div className="hidden bg-primary h-full w-full rounded-l-lg p-3 md:flex md:flex-col md:gap-1 md:justify-between">
+                <div>
+                    <h2 className="text-white text-3xl font-semibold w-2/4 pb-2">
+                        Welcome to My Personal Finances
+                    </h2>
+                    <p className="text-white text-sm w-3/4">
+                        Log in to your account or create a new one and start
+                        taking control of your finances.
+                    </p>
+                </div>
+                <span className="text-white text-sm self-center">
+                    Project created by
+                    <a
+                        href="https://francobaigorria.netlify.app/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-bold pl-1 underline "
+                    >
+                        Franco Baigorria
+                    </a>
+                </span>
+            </div>
             <form
                 onSubmit={(e) => handleIdentification(e)}
-                className="w-full paper p-10 grid gap-3 md:max-w-md"
+                className="w-full p-10 py-20 grid gap-3 max-w-sm md:max-w-md"
             >
-                <h2 className="text-xl">
+                <h2 className="text-xl font-medium">
                     {isLogin
                         ? "Log in to your account"
                         : "Sign up for your account"}
@@ -97,7 +119,7 @@ function Identification() {
                     placeholder="Password..."
                     value={password}
                     onChange={({ target }) => setPassword(target.value)}
-                    className="input"
+                    className="input text-sm"
                     required
                 />
                 {error === "" ? (
