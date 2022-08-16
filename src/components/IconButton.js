@@ -7,7 +7,7 @@ function IconButton({ Icon, text, onClick }) {
             onClick={() => onClick(true)}
         >
             {Icon}
-            <p className="text-lg">{text}</p>
+            <p className="text-lg lg:text-xl">{text}</p>
         </button>
     );
 }
