@@ -51,38 +51,49 @@ function TransactionList() {
     }, [dispatch, isFullPage]);
 
     return (
-        <div
-            className={classNames(
-                "paper px-8 py-4 row-span-2 md:h-auto lg:pb-14",
-                isFullPage
-                    ? "absolute top-0 right-0 w-full rounded-none z-30 bg-white"
-                    : ""
-            )}
-        >
-            <div className="flex justify-between items-center pb-4">
-                <h3 className="font-semibold">Latest transactions</h3>
-                {isFullPage ? (
-                    <XIcon
-                        className="w-6 cursor-pointer"
-                        onClick={() => {
-                            setIsFullPage(false);
-                        }}
-                    />
-                ) : (
-                    <ExternalLinkIcon
-                        className="w-6 cursor-pointer"
-                        onClick={() => {
-                            setIsFullPage(true);
-                        }}
-                    />
+        <>
+            <div
+                className={classNames(
+                    "backdrop",
+                    isFullPage ? "visible" : "hidden"
                 )}
+                onClick={() => {
+                    setIsFullPage(false);
+                }}
+            ></div>
+            <div
+                className={classNames(
+                    "paper px-8 py-4 row-span-2 md:h-auto lg:pb-14",
+                    isFullPage
+                        ? "absolute top-0 right-0 w-full rounded-none z-30 bg-white md:w-2/4 md:right-2/4 md:translate-x-2/4 md:mt-2 md:rounded-lg"
+                        : ""
+                )}
+            >
+                <div className="flex justify-between items-center pb-4">
+                    <h3 className="font-semibold">Latest transactions</h3>
+                    {isFullPage ? (
+                        <XIcon
+                            className="w-6 cursor-pointer"
+                            onClick={() => {
+                                setIsFullPage(false);
+                            }}
+                        />
+                    ) : (
+                        <ExternalLinkIcon
+                            className="w-6 cursor-pointer"
+                            onClick={() => {
+                                setIsFullPage(true);
+                            }}
+                        />
+                    )}
+                </div>
+                <div className="grid gap-2">
+                    {transactions.map((tran) => (
+                        <TransactionItem key={tran.id} data={tran} />
+                    ))}
+                </div>
             </div>
-            <div className="grid gap-2">
-                {transactions.map((tran) => (
-                    <TransactionItem key={tran.id} data={tran} />
-                ))}
-            </div>
-        </div>
+        </>
     );
 }
 
