@@ -12,7 +12,7 @@ function InputDatePicker({ control, errors }) {
     const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div onClick={onClick} ref={ref} className="relative">
             <CalendarIcon className="w-5 text-gray-400 absolute bottom-2 left-0" />
-            <div className="input-transaction pl-7 w-4/12">{value}</div>
+            <div className="input-transaction pl-7 w-4/12 h-7">{value}</div>
         </div>
     ));
 
