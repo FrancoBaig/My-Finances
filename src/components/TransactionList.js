@@ -53,7 +53,7 @@ function TransactionList() {
     return (
         <div
             className={classNames(
-                "paper px-8 py-4",
+                "paper px-8 py-4 row-span-2 md:h-auto lg:pb-14",
                 isFullPage
                     ? "absolute top-0 right-0 w-full rounded-none z-30 bg-white"
                     : ""

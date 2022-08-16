@@ -9,7 +9,7 @@ import { PieChart } from "react-minimal-pie-chart";
 // randomColor
 import randomColor from "randomcolor";
 
-// month
+// moment
 import moment from "moment";
 
 const Label = ({ tag }) => {
@@ -53,14 +53,16 @@ function CategoriesChart({ title, isIncome = true }) {
 
     return (
         <div>
-            <div className="paper px-8 py-4">
+            <div className="paper px-8 py-4 lg:max-h-96">
                 <h3 className="font-semibold pb-4">
                     {title} in {date}
                 </h3>
-                <PieChart data={categories} />
+                <div className="lg:h-48">
+                    <PieChart data={categories} />
+                </div>
                 <div className="pt-4 flex flex-wrap gap-2">
-                    {categories.map((tag) => (
-                        <Label tag={tag} />
+                    {categories.map((tag, index) => (
+                        <Label tag={tag} key={index} />
                     ))}
                 </div>
             </div>

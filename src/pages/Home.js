@@ -33,12 +33,18 @@ function Home() {
     }, [dispatch, date]);
 
     return (
-        <div className="relative grid gap-4">
-            <MonthlyBalanceChart />
-            <MonthlyOverview />
-            <TransactionList />
-            <CategoriesChart title="Incomes" isIncome={true} />
-            <CategoriesChart title="Expenses" isIncome={false} />
+        <div className="relative my-0 mx-auto max-w-7xl grid gap-4 justify-center md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4">
+                <MonthlyBalanceChart />
+                <MonthlyOverview />
+            </div>
+            <div>
+                <TransactionList />
+            </div>
+            <div className="grid gap-4 md:col-span-2 md:grid-cols-2 lg:grid-cols-1 lg:col-span-1 lg:row-span-2">
+                <CategoriesChart title="Incomes" isIncome={true} />
+                <CategoriesChart title="Expenses" isIncome={false} />
+            </div>
             {openTransaction ? (
                 <Transaction
                     setModal={setOpenTransaction}

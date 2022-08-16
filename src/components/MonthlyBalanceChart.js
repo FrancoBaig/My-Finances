@@ -69,7 +69,7 @@ function MonthlyBalanceChart() {
     return (
         <div className="paper px-8 py-4 relative">
             <ToggleMonths title={month} />
-            <div className="grid gap-1 justify-center content-center items-center absolute top-2/4 right-2/4 -translate-y-2/4 translate-x-2/4 pt-5">
+            <div className="grid gap-1 justify-center content-center items-center absolute top-2/4 right-2/4 -translate-y-2/4 translate-x-2/4 pt-5 md:-translate-y-3/4 md:mt-2">
                 <span className="font-semibold text-3xl text-[#333333] ">
                     ${initial + (balance[0].value - balance[1].value)}
                 </span>

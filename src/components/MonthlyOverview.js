@@ -54,7 +54,7 @@ function MonthlyOverview() {
     });
 
     return (
-        <div className="paper px-8 py-4">
+        <div className="paper px-8 py-4 row-start-2 lg:h-full">
             <h3 className="font-semibold pb-1">Monthly Overview</h3>
             <IconItem title="Incomes" value={values.incomes}>
                 <IncomeIcon />
