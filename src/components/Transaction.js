@@ -13,7 +13,10 @@ import { XIcon } from "@heroicons/react/solid";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { postTransaction } from "../redux/states/transactionsState";
-import { updateCategoryValue } from "../redux/states/categoriesState";
+import {
+    updateCategoryValue,
+    updateInitial,
+} from "../redux/states/categoriesState";
 
 // Moment
 import moment from "moment";
@@ -59,13 +62,23 @@ function Transaction({ setModal, mode }) {
             amount: data.amount,
             isIncome: mode.id === 1,
         };
-        dispatch(updateCategoryValue(payload));
+
+        const currentMonth = moment(new Date()).format("MM");
+        const transactionMonth = moment(data.date).format("MM");
+
+        if (transactionMonth === currentMonth) {
+            dispatch(updateCategoryValue(payload));
+        } else if (transactionMonth < currentMonth) {
+            dispatch(updateInitial({ amount: payload.amount }));
+        }
+
         setModal(false);
     };
 
     if (items === undefined) {
         return;
     }
+
     return (
         <div className="absolute top-0 right-0 bg-white w-full h-full">
             <div
