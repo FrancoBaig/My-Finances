@@ -33,7 +33,7 @@ function Home() {
     }, [dispatch, date]);
 
     return (
-        <div className="relative my-0 mx-auto max-w-7xl grid gap-4 justify-center md:grid-cols-2 lg:grid-cols-3">
+        <div className="relative py-5 mx-auto max-w-7xl grid gap-4 justify-center md:grid-cols-2 lg:grid-cols-3">
             <div className="grid gap-4">
                 <MonthlyBalanceChart />
                 <MonthlyOverview />
