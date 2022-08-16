@@ -33,6 +33,7 @@ const ToggleMonths = ({ title }) => {
 };
 
 function MonthlyBalanceChart() {
+    const initial = useSelector((state) => state.categories.initial);
     const balance = useSelector((state) => {
         const categories = state.categories;
         const expenses =
@@ -68,9 +69,14 @@ function MonthlyBalanceChart() {
     return (
         <div className="paper px-8 py-4 relative">
             <ToggleMonths title={month} />
-            <span className="font-semibold text-3xl text-[#333333] absolute top-2/4 right-2/4 -translate-y-2/4 translate-x-2/4 pt-5">
-                ${balance[0].value - balance[1].value}
-            </span>
+            <div className="grid gap-1 justify-center content-center items-center absolute top-2/4 right-2/4 -translate-y-2/4 translate-x-2/4 pt-5">
+                <span className="font-semibold text-3xl text-[#333333] ">
+                    ${initial + (balance[0].value - balance[1].value)}
+                </span>
+                <span className="font-semibold text-xs text-gray-500 text-center">
+                    Initial ${initial || 0}
+                </span>
+            </div>
             <div className="p-3">
                 <PieChart data={balance} lineWidth={15} rounded animate />
             </div>

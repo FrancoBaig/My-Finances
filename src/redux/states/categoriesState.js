@@ -5,6 +5,7 @@ import {
 } from "../../services/categoriesAPI";
 
 export const initialState = {
+    initial: 0,
     incomes: [],
     expenses: [],
 };
@@ -32,6 +33,14 @@ export const categoriesSlice = createSlice({
             return {
                 ...state,
                 [section]: newCategories,
+            };
+        },
+        updateInitial: (state, action) => {
+            const { amount } = action.payload;
+
+            return {
+                ...state,
+                initial: state.initial + amount,
             };
         },
     },
@@ -65,7 +74,11 @@ export const postCategory = (data) => {
     };
 };
 
-export const { createCategories, setCategory, updateCategoryValue } =
-    categoriesSlice.actions;
+export const {
+    createCategories,
+    setCategory,
+    updateCategoryValue,
+    updateInitial,
+} = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;
