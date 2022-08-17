@@ -31,9 +31,13 @@ export const postTransactionService = async (data, token) => {
 
 export const updateTransactionService = async (data, token) => {
     try {
-        const response = await axios.put(`${baseURL}/api/transaction`, data, {
-            headers: { Authorization: token },
-        });
+        const response = await axios.put(
+            `${baseURL}/api/transaction/${data.id}`,
+            data,
+            {
+                headers: { Authorization: token },
+            }
+        );
         return response.data;
     } catch (err) {
         console.log(err);
