@@ -6,10 +6,7 @@ import {
     deleteTransaction,
 } from "../redux/states/transactionsState";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    updateCategoryValue,
-    updateInitial,
-} from "../redux/states/categoriesState";
+import { getCategories } from "../redux/states/categoriesState";
 
 // helper
 import { classNames } from "../helper/classNames";
@@ -75,6 +72,7 @@ const options = [
 ];
 
 function TransactionList() {
+    const date = useSelector((state) => state.date);
     const dispatch = useDispatch();
     const [filter, setFilter] = useState("ALL");
     const [isFullPage, setIsFullPage] = useState(false);
@@ -102,21 +100,7 @@ function TransactionList() {
 
     const handleDelete = (data) => {
         dispatch(deleteTransaction(data.id));
-
-        const payload = {
-            id: data.category_id,
-            amount: data.amount * -1,
-            isIncome: data.amount > 0,
-        };
-
-        const currentMonth = moment(new Date()).format("MM");
-        const transactionMonth = moment(data.date).format("MM");
-
-        if (transactionMonth === currentMonth) {
-            dispatch(updateCategoryValue(payload));
-        } else if (transactionMonth < currentMonth) {
-            dispatch(updateInitial({ amount: payload.amount }));
-        }
+        dispatch(getCategories(date.year, date.month));
     };
 
     return (

@@ -1,8 +1,9 @@
 import React from "react";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTransaction } from "../redux/states/transactionsState";
+import { getCategories } from "../redux/states/categoriesState";
 
 // useForm
 import { useForm } from "react-hook-form";
@@ -17,6 +18,7 @@ import { CurrencyDollarIcon } from "@heroicons/react/outline";
 import moment from "moment";
 
 function EditTransaction({ data = {}, setDisplay }) {
+    const date = useSelector((state) => state.date);
     const dispatch = useDispatch();
     const {
         register,
@@ -31,13 +33,15 @@ function EditTransaction({ data = {}, setDisplay }) {
     });
 
     const handleSubmitTransaction = (form) => {
+        const amount = parseInt(form.amount);
         const newTransaction = {
             id: data.id,
             description: form.description,
-            amount: data.amount > 0 ? form.amount : -1 * form.amount,
+            amount: data.amount > 0 ? amount : -1 * amount,
             date: moment(form.date).format("YYYY-MM-DD HH:mm:ss"),
         };
         dispatch(updateTransaction(newTransaction));
+        dispatch(getCategories(date.year, date.month));
         setDisplay(null);
     };
 
