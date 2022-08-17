@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // services
-import { getTransactionsService } from "../../services/transactionsAPI";
-import { postTransactionService } from "../../services/transactionsAPI";
+import {
+    getTransactionsService,
+    postTransactionService,
+    updateTransactionService,
+} from "../../services/transactionsAPI";
 
 export const initialState = [];
 
@@ -12,6 +15,20 @@ export const transactionsSlice = createSlice({
     reducers: {
         createTransactions: (state, action) => action.payload,
         setTransaction: (state, action) => [action.payload, ...state],
+        updateTransactionValues: (state, action) => {
+            const data = action.payload;
+
+            const index = state.findIndex((el) => el.id === data.id);
+
+            const newTransactions = [...state];
+
+            newTransactions[index] = {
+                ...newTransactions[index],
+                ...data,
+            };
+
+            return [...newTransactions];
+        },
     },
 });
 
@@ -42,5 +59,18 @@ export const postTransaction = (data) => {
     };
 };
 
-export const { createTransactions, setTransaction } = transactionsSlice.actions;
+export const updateTransaction = (data) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        try {
+            await updateTransactionService(data, state.user.token);
+            dispatch(updateTransactionValues(data));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+export const { createTransactions, setTransaction, updateTransactionValues } =
+    transactionsSlice.actions;
 export default transactionsSlice.reducer;

@@ -13,13 +13,29 @@ import moment from "moment";
 // icons
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import { XIcon } from "@heroicons/react/solid";
+import { PencilIcon } from "@heroicons/react/solid";
 
-const TransactionItem = ({ data }) => {
+// Components
+import EditTransaction from "./EditTransaction";
+
+const TransactionItem = ({ data, handleEdit, isFullPage }) => {
     const newDate = moment(data.date).format("DD-MM-YYYY");
     return (
         <div>
             <div className="flex justify-between items-center">
-                <p>{data.description}</p>
+                <div className="flex">
+                    <div
+                        className={classNames(
+                            isFullPage ? "flex items-center mt-px" : "hidden"
+                        )}
+                    >
+                        <PencilIcon
+                            className="mr-2 w-4 text-gray-400 cursor-pointer"
+                            onClick={() => handleEdit(data)}
+                        />
+                    </div>
+                    <p>{data.description}</p>
+                </div>
                 <div className="grid gap-0 items-end">
                     <p
                         className={classNames(
@@ -47,6 +63,7 @@ function TransactionList() {
     const dispatch = useDispatch();
     const [filter, setFilter] = useState("ALL");
     const [isFullPage, setIsFullPage] = useState(false);
+    const [edit, setEdit] = useState(null);
     const transactions = useSelector((state) => {
         if (!isFullPage) return state.transactions;
 
@@ -121,9 +138,19 @@ function TransactionList() {
                 </div>
                 <div className="grid gap-2">
                     {transactions.map((tran) => (
-                        <TransactionItem key={tran.id} data={tran} />
+                        <TransactionItem
+                            key={tran.id}
+                            data={tran}
+                            handleEdit={setEdit}
+                            isFullPage={isFullPage}
+                        />
                     ))}
                 </div>
+                {edit ? (
+                    <EditTransaction data={edit} setDisplay={setEdit} />
+                ) : (
+                    ""
+                )}
             </div>
         </>
     );

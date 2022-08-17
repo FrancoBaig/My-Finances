@@ -28,3 +28,14 @@ export const postTransactionService = async (data, token) => {
         console.log(err);
     }
 };
+
+export const updateTransactionService = async (data, token) => {
+    try {
+        const response = await axios.put(`${baseURL}/api/transaction`, data, {
+            headers: { Authorization: token },
+        });
+        return response.data;
+    } catch (err) {
+        console.log(err);
+    }
+};
