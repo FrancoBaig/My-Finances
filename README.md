@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Backend Repository
+
+Open [my-finance-db](https://github.com/FrancoBaig/my-finances-db) to view the Backend repository.
+
 ## Available Scripts
 
 In the project directory, you can run:
