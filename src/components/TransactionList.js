@@ -73,11 +73,12 @@ const options = [
 
 function TransactionList() {
     const date = useSelector((state) => state.date);
+    const transactions = useSelector((state) => state.transactions);
     const dispatch = useDispatch();
     const [filter, setFilter] = useState("ALL");
     const [isFullPage, setIsFullPage] = useState(false);
     const [edit, setEdit] = useState(null);
-    const transactions = useSelector((state) => {
+    const filtered = useSelector((state) => {
         if (!isFullPage) return state.transactions;
 
         if (filter === "ALL") {
@@ -98,9 +99,12 @@ function TransactionList() {
         }
     }, [dispatch, isFullPage]);
 
+    useEffect(() => {
+        dispatch(getCategories(date.year, date.month));
+    }, [dispatch, transactions, date]);
+
     const handleDelete = (data) => {
         dispatch(deleteTransaction(data.id));
-        dispatch(getCategories(date.year, date.month));
     };
 
     return (
@@ -155,7 +159,7 @@ function TransactionList() {
                     )}
                 </div>
                 <div className="grid gap-2">
-                    {transactions.map((tran) => (
+                    {filtered.map((tran) => (
                         <TransactionItem
                             key={tran.id}
                             data={tran}
