@@ -157,15 +157,22 @@ function Transaction({ setModal, mode }) {
                                     className="block w-full border-b bg-white text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-state"
                                     {...register("category", {
+                                        required: "Select the category",
                                         valueAsNumber: true,
                                     })}
                                 >
+                                    <option value=""></option>
                                     {items.map((item) => (
                                         <option key={item.id} value={item.id}>
                                             {item.title}
                                         </option>
                                     ))}
                                 </select>
+                                {errors.category && (
+                                    <span className="input-error">
+                                        {errors.category.message}
+                                    </span>
+                                )}
                                 <ChevronDownIcon className="h-4 w-4 pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700" />
                             </div>
                             <div
