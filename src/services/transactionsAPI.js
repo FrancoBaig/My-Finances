@@ -39,3 +39,17 @@ export const updateTransactionService = async (data, token) => {
         console.log(err);
     }
 };
+
+export const deleteTransactionService = async (id, token) => {
+    try {
+        const response = await axios.delete(
+            `${baseURL}/api/transaction/${id}`,
+            {
+                headers: { Authorization: token },
+            }
+        );
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+};

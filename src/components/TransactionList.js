@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 // Redux
-import { getTransactions } from "../redux/states/transactionsState";
+import {
+    getTransactions,
+    deleteTransaction,
+} from "../redux/states/transactionsState";
 import { useDispatch, useSelector } from "react-redux";
+import {
+    updateCategoryValue,
+    updateInitial,
+} from "../redux/states/categoriesState";
 
 // helper
 import { classNames } from "../helper/classNames";
@@ -14,27 +21,35 @@ import moment from "moment";
 import { ExternalLinkIcon } from "@heroicons/react/solid";
 import { XIcon } from "@heroicons/react/solid";
 import { PencilIcon } from "@heroicons/react/solid";
+import { TrashIcon } from "@heroicons/react/solid";
 
 // Components
 import EditTransaction from "./EditTransaction";
 
-const TransactionItem = ({ data, handleEdit, isFullPage }) => {
+const TransactionItem = ({ data, handleEdit, isFullPage, handleDelete }) => {
     const newDate = moment(data.date).format("DD-MM-YYYY");
+
     return (
         <div>
             <div className="flex justify-between items-center">
                 <div className="flex">
+                    <p>{data.description}</p>
                     <div
                         className={classNames(
-                            isFullPage ? "flex items-center mt-px" : "hidden"
+                            isFullPage
+                                ? "flex gap-1 items-center mt-px"
+                                : "hidden"
                         )}
                     >
                         <PencilIcon
-                            className="mr-2 w-4 text-gray-400 cursor-pointer"
+                            className="ml-2 w-4 text-gray-400 cursor-pointer"
                             onClick={() => handleEdit(data)}
                         />
+                        <TrashIcon
+                            className="w-4 text-gray-400 cursor-pointer"
+                            onClick={() => handleDelete(data)}
+                        />
                     </div>
-                    <p>{data.description}</p>
                 </div>
                 <div className="grid gap-0 items-end">
                     <p
@@ -84,6 +99,25 @@ function TransactionList() {
             dispatch(getTransactions(10));
         }
     }, [dispatch, isFullPage]);
+
+    const handleDelete = (data) => {
+        dispatch(deleteTransaction(data.id));
+
+        const payload = {
+            id: data.category_id,
+            amount: data.amount * -1,
+            isIncome: data.amount > 0,
+        };
+
+        const currentMonth = moment(new Date()).format("MM");
+        const transactionMonth = moment(data.date).format("MM");
+
+        if (transactionMonth === currentMonth) {
+            dispatch(updateCategoryValue(payload));
+        } else if (transactionMonth < currentMonth) {
+            dispatch(updateInitial({ amount: payload.amount }));
+        }
+    };
 
     return (
         <>
@@ -142,6 +176,7 @@ function TransactionList() {
                             key={tran.id}
                             data={tran}
                             handleEdit={setEdit}
+                            handleDelete={handleDelete}
                             isFullPage={isFullPage}
                         />
                     ))}

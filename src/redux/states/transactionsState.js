@@ -5,6 +5,7 @@ import {
     getTransactionsService,
     postTransactionService,
     updateTransactionService,
+    deleteTransactionService,
 } from "../../services/transactionsAPI";
 
 export const initialState = [];
@@ -28,6 +29,12 @@ export const transactionsSlice = createSlice({
             };
 
             return [...newTransactions];
+        },
+        removeTransaction: (state, action) => {
+            const id = action.payload;
+            const filteredTransactions = state.filter((tran) => tran.id !== id);
+
+            return [...filteredTransactions];
         },
     },
 });
@@ -71,6 +78,22 @@ export const updateTransaction = (data) => {
     };
 };
 
-export const { createTransactions, setTransaction, updateTransactionValues } =
-    transactionsSlice.actions;
+export const deleteTransaction = (id) => {
+    return async (dispatch, getState) => {
+        const state = getState();
+        try {
+            await deleteTransactionService(id, state.user.token);
+            dispatch(removeTransaction(id));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+};
+
+export const {
+    createTransactions,
+    setTransaction,
+    updateTransactionValues,
+    removeTransaction,
+} = transactionsSlice.actions;
 export default transactionsSlice.reducer;
