@@ -37,15 +37,33 @@ const TransactionItem = ({ data }) => {
     );
 };
 
+const options = [
+    { id: "ALL", title: "All" },
+    { id: "INCOMES", title: "Incomes" },
+    { id: "EXPENSES", title: "Expenses" },
+];
+
 function TransactionList() {
     const dispatch = useDispatch();
-    const transactions = useSelector((state) => state.transactions);
+    const [filter, setFilter] = useState("ALL");
     const [isFullPage, setIsFullPage] = useState(false);
+    const transactions = useSelector((state) => {
+        if (!isFullPage) return state.transactions;
+
+        if (filter === "ALL") {
+            return state.transactions;
+        } else if (filter === "INCOMES") {
+            return state.transactions.filter((el) => el.amount > 0);
+        } else {
+            return state.transactions.filter((el) => el.amount < 0);
+        }
+    });
 
     useEffect(() => {
         if (isFullPage) {
             dispatch(getTransactions());
         } else {
+            setFilter("ALL");
             dispatch(getTransactions(10));
         }
     }, [dispatch, isFullPage]);
@@ -72,12 +90,26 @@ function TransactionList() {
                 <div className="flex justify-between items-center pb-4">
                     <h3 className="font-semibold">Latest transactions</h3>
                     {isFullPage ? (
-                        <XIcon
-                            className="w-6 cursor-pointer"
-                            onClick={() => {
-                                setIsFullPage(false);
-                            }}
-                        />
+                        <div className="flex gap-5">
+                            <select
+                                className="rounded bg-gray-200 p-1"
+                                onChange={({ target }) =>
+                                    setFilter(target.value)
+                                }
+                            >
+                                {options.map((opt) => (
+                                    <option value={opt.id} key={opt.id}>
+                                        {opt.title}
+                                    </option>
+                                ))}
+                            </select>
+                            <XIcon
+                                className="w-6 cursor-pointer"
+                                onClick={() => {
+                                    setIsFullPage(false);
+                                }}
+                            />
+                        </div>
                     ) : (
                         <ExternalLinkIcon
                             className="w-6 cursor-pointer"
