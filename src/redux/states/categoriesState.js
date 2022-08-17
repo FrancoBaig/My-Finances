@@ -15,7 +15,16 @@ export const categoriesSlice = createSlice({
     initialState: initialState,
     reducers: {
         createCategories: (state, action) => action.payload,
-        setCategory: (state, action) => [...state, action.payload],
+        setCategory: (state, action) => {
+            const category = action.payload;
+            const section =
+                category.category_type === 1 ? "incomes" : "expenses";
+
+            return {
+                ...state,
+                [section]: [...state[section], category],
+            };
+        },
         updateCategoryValue: (state, action) => {
             const data = action.payload;
 

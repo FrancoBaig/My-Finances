@@ -20,9 +20,6 @@ function CreateCategory({ display = true, setDisplay }) {
             title: form.title,
             category_type: parseInt(form.category_type),
         };
-
-        console.log(data);
-
         dispatch(postCategory(data));
         setDisplay(false);
     };
