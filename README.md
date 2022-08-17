@@ -1,4 +1,6 @@
-# Backend Repository
+# Demo and Backend Repository
+
+Open [my-personal-finances](https://mypersonalfinances-fb.netlify.app/) to test the site (https://mypersonalfinances-fb.netlify.app/)
 
 Open [my-finance-db](https://github.com/FrancoBaig/my-finances-db) to view the Backend repository.
 
