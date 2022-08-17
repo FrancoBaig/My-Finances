@@ -76,7 +76,7 @@ export const postCategory = (data) => {
         const state = getState();
         try {
             const result = await postCategoryService(data, state.user.token);
-            dispatch(setCategory({ id: result.id, ...data }));
+            dispatch(setCategory({ id: result.id, value: 0, ...data }));
         } catch (err) {
             console.log(err);
         }
