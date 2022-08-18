@@ -7,6 +7,9 @@ import { postCategory } from "../redux/states/categoriesState";
 // useForm
 import { useForm } from "react-hook-form";
 
+// randomColor
+import randomColor from "randomcolor";
+
 function CreateCategory({ display = true, setDisplay }) {
     const dispatch = useDispatch();
     const {
@@ -19,6 +22,10 @@ function CreateCategory({ display = true, setDisplay }) {
         const data = {
             title: form.title,
             category_type: parseInt(form.category_type),
+            color: randomColor({
+                    luminosity: "light",
+                    hue: "blue",
+            })
         };
         dispatch(postCategory(data));
         setDisplay(false);

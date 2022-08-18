@@ -6,9 +6,6 @@ import { useSelector } from "react-redux";
 // React minimal pie chart
 import { PieChart } from "react-minimal-pie-chart";
 
-// randomColor
-import randomColor from "randomcolor";
-
 // moment
 import moment from "moment";
 
@@ -17,7 +14,9 @@ const Label = ({ tag }) => {
         <div className="flex gap-2 items-center">
             <div
                 className="w-4 h-4 rounded-full"
-                style={{ backgroundColor: tag.color }}
+                style={{
+                    backgroundColor: tag.color,
+                }}
             ></div>
             <p className="text-sm">
                 {tag.title} ({tag.value})
@@ -28,21 +27,11 @@ const Label = ({ tag }) => {
 
 function CategoriesChart({ title, isIncome = true }) {
     const categories = useSelector((state) => {
-        let cat = [];
         if (isIncome) {
-            cat = state.categories.incomes;
+            return state.categories.incomes;
         } else {
-            cat = state.categories.expenses;
+            return state.categories.expenses;
         }
-        return cat.map((t) => {
-            return {
-                ...t,
-                color: randomColor({
-                    luminosity: "light",
-                    hue: "blue",
-                }),
-            };
-        });
     });
 
     const date = useSelector((state) =>
