@@ -11,6 +11,7 @@ function IncomeIcon() {
                 stroke="currentColor"
                 strokeWidth="2"
             >
+                <title>income icon</title>
                 <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

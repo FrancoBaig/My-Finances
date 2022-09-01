@@ -11,6 +11,7 @@ function ExpenseIcon() {
                 stroke="currentColor"
                 strokeWidth="2"
             >
+                <title>expense icon</title>
                 <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
