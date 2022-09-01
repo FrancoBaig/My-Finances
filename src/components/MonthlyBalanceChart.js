@@ -1,7 +1,7 @@
 import React from "react";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { increaseMonth, decreaseMonth } from "../redux/states/dateState";
 
 // React minimal pie chart
@@ -15,17 +15,19 @@ import { ChevronRightIcon } from "@heroicons/react/outline";
 import moment from "moment";
 
 const ToggleMonths = ({ title }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
         <div className="flex gap-4 justify-center">
             <ChevronLeftIcon
                 className="w-5 cursor-pointer"
+                data-testid="toggle-month-left"
                 onClick={() => dispatch(decreaseMonth())}
             />
             <span className="font-semibold pb-px">{title}</span>
             <ChevronRightIcon
                 className="w-5 cursor-pointer"
+                data-testid="toggle-month-right"
                 onClick={() => dispatch(increaseMonth())}
             />
         </div>
@@ -33,8 +35,8 @@ const ToggleMonths = ({ title }) => {
 };
 
 function MonthlyBalanceChart() {
-    const initial = useSelector((state) => state.categories.initial);
-    const balance = useSelector((state) => {
+    const initial = useAppSelector((state) => state.categories.initial);
+    const balance = useAppSelector((state) => {
         const categories = state.categories;
         const expenses =
             -1 *
@@ -60,7 +62,7 @@ function MonthlyBalanceChart() {
         ];
     });
 
-    const month = useSelector((state) =>
+    const month = useAppSelector((state) =>
         moment()
             .month(state.date.month - 1)
             .format("MMMM")
