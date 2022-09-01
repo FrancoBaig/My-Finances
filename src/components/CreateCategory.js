@@ -1,7 +1,7 @@
 import React from "react";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../redux/hooks";
 import { postCategory } from "../redux/states/categoriesState";
 
 // useForm
@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import randomColor from "randomcolor";
 
 function CreateCategory({ display = true, setDisplay }) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {
         register,
         handleSubmit,
@@ -23,9 +23,9 @@ function CreateCategory({ display = true, setDisplay }) {
             title: form.title,
             category_type: parseInt(form.category_type),
             color: randomColor({
-                    luminosity: "light",
-                    hue: "blue",
-            })
+                luminosity: "light",
+                hue: "blue",
+            }),
         };
         dispatch(postCategory(data));
         setDisplay(false);
@@ -44,19 +44,21 @@ function CreateCategory({ display = true, setDisplay }) {
                         className="paper rounded-md w-8/12 z-40 grid gap-4"
                     >
                         <div>
-                            <label className="label">Create category</label>
-                            <input
-                                type="text"
-                                placeholder="Category name"
-                                className="input"
-                                {...register(
-                                    "title",
-                                    { required: true },
-                                    {
-                                        valueAsNumber: true,
-                                    }
-                                )}
-                            />
+                            <label className="label">
+                                Create category
+                                <input
+                                    type="text"
+                                    placeholder="Category name"
+                                    className="input"
+                                    {...register(
+                                        "title",
+                                        { required: true },
+                                        {
+                                            valueAsNumber: true,
+                                        }
+                                    )}
+                                />
+                            </label>
                             {errors.title && (
                                 <span className="input-error">
                                     The title is required
@@ -67,6 +69,7 @@ function CreateCategory({ display = true, setDisplay }) {
                             <select
                                 className="block w-full border-b input py-3 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="grid-state"
+                                data-testid="create-category-select"
                                 {...register("category_type", {
                                     required: true,
                                 })}

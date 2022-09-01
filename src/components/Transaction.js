@@ -11,7 +11,7 @@ import { PlusCircleIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 
 // Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { postTransaction } from "../redux/states/transactionsState";
 import {
     updateCategoryValue,
@@ -28,14 +28,14 @@ import { useForm } from "react-hook-form";
 import { classNames } from "../helper/classNames";
 
 function Transaction({ setModal, mode }) {
-    const items = useSelector((state) => {
+    const items = useAppSelector((state) => {
         if (mode.id === 1) {
             return state.categories.incomes;
         } else {
             return state.categories.expenses;
         }
     });
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [createCategory, setCreateCategory] = useState(false);
 
     const {
@@ -178,6 +178,7 @@ function Transaction({ setModal, mode }) {
                             <div
                                 className="cursor-pointer"
                                 onClick={() => setCreateCategory(true)}
+                                data-testid="add-category"
                             >
                                 <PlusCircleIcon className="w-7 pointer-events-none text-gray-500" />
                             </div>
