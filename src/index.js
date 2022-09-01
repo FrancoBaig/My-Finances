@@ -5,7 +5,7 @@ import "./index.css";
 
 // Redux
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import { setupStore } from "./redux/store";
 
 // React router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,7 +16,7 @@ import Identification from "./pages/Identification";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <Provider store={store}>
+    <Provider store={setupStore()}>
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoute />}>
