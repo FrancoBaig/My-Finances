@@ -142,6 +142,7 @@ function TransactionList() {
                                     </option>
                                 ))}
                             </select>
+
                             <XIcon
                                 className="w-6 cursor-pointer"
                                 onClick={() => {
@@ -152,6 +153,7 @@ function TransactionList() {
                     ) : (
                         <ExternalLinkIcon
                             className="w-6 cursor-pointer"
+                            data-testid="open-fullpage"
                             onClick={() => {
                                 setIsFullPage(true);
                             }}
